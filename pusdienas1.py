@@ -72,6 +72,15 @@ att2.Atteiksanas_info_print()
 print(att3.atteiksanasId)
 att3.Atteiksanas_info()
 att3.Atteiksanas_info_print()
+print(atteicejs1.atteiksanasId)
+atteicejs1.Atteiceja_info()
+atteicejs1.Atteiceja_info_print()
+print(atteicejs2.atteiksanasId)
+atteicejs2.Atteiceja_info()
+atteicejs2.Atteiceja_info_print()
+print(atteicejs3.atteiksanasId)
+atteicejs3.Atteiceja_info()
+atteicejs3.Atteiceja_info_print()
 
 
     
