@@ -1,7 +1,15 @@
 import itertools
-
+import os
+import tkinter as tk
 import datetime
 from datetime import date
+
+
+def open_calendar():
+    os.system('kalendars.py')
+
+
+
 
 class Atteikt:
     atteiksanasDatumsNo= ""
@@ -9,6 +17,7 @@ class Atteikt:
     pusdienuMaksaVienaDiena = 0
 
     id_iter= itertools.count()
+
 
     def __init__(self,dat_no,dat_lidz,pus_mak_diena=1.5):
         self.atteiksanasId=next(self.id_iter)+1
@@ -27,6 +36,9 @@ class Atteikt:
         print("Pusdienu atteikšanas datums no: "+ str(self.atteiksanasDatumsNo))
         print("Pusdienu atteikšanas datums līdz: " + str(self.atteiksanasDatumsLidz))
         print("Pusdienu maksa vienā dienā: "+ str(self.pusdienuMaksaVienaDiena))
+
+    
+
 
 class Atteicejs:
     vards=""
@@ -54,13 +66,18 @@ class Atteicejs:
         print("Atteiceja personas kods : "+ str(self.personasKods))
 
 
+btn=tk.Button(text="Calendars",command=open_calendar)
+
+
 
 with open("atteicejuInfo.txt","a",encoding="utf-8") as fail:
+
     while True:
         atteicejsInfo=[]
 
         velReiz=input("Vai gribat ievadit vēl vienu personu? : jā/nē ?")
         if velReiz == "jā":
+
             cilvekaVards= input("Ievadiet savu vārdu: ")
             cilvekaUzvards= input("Ievadiet savu uzvārdu: ")
             cilvekaPersonasKods=input("Ievadiet savu personas kodu: ")
