@@ -1,0 +1,61 @@
+[
+    {
+        "name": "Jazeps",
+        "age": "20",
+        "city": "Rezekne"
+    },
+    {
+        "name": "Dainis",
+        "age": "40",
+        "city": "R\u0113zekne"
+    },
+    {
+        "name": "Daniels",
+        "age": "15",
+        "city": "Gulbene"
+    },
+    {
+        "name": "Jazeps",
+        "age": "20",
+        "city": "Rezekne"
+    },
+    {
+        "name": "Jazeps",
+        "age": "24",
+        "city": "Rezekne"
+    },
+    {
+        "name": "Raivis",
+        "age": "29",
+        "city": "Ruzina"
+    },
+    {
+        "name": "Raivis",
+        "age": "24",
+        "city": "Tervete"
+    },
+    {
+        "name": "Jura",
+        "age": "14",
+        "city": "Adazi"
+    },
+    {
+        "name": "Julik",
+        "age": "25",
+        "city": "Jekabpils"
+    },
+    {
+        "name": "Kristers",
+        "age": "25",
+        "city": "Talsis"
+    },
+    {
+        "dat_no": "13.10.2024",
+        "dat_lidz": "15.10.2024"
+    },
+    {
+        "name": "Janis",
+        "age": "30",
+        "city": "Garkalni"
+    }
+]
