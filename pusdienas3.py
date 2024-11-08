@@ -99,7 +99,7 @@ while True:
             dat_no=input("Ievadiet datumu no kura jus velaties atteikt pusdienas: ")
             dat_lidz=input("Ievadiet datumu lidz kuram jus velaties atteikt pusdienas: ")
 
-            people.append({
+            pusdienuatteiksana.append({
             "dat_no":dat_no,
             "dat_lidz":dat_lidz,
         })
@@ -111,6 +111,7 @@ while True:
         else:
             print("Paldies par izmantošanu!")
             break
+    break
 
 
 with open("people_data.json","w",encoding="utf-8") as file:
@@ -124,3 +125,33 @@ print("Dati ir veiksmīgi saglabāti JSON failā! ")
 
 att1=Atteikt(name,age,city)
 
+
+
+'''
+Jauztaisa izveles ka organisation 
+pieskirt id katram jaunam cilvekam kas izveido savu kontu
+
+
+def main():
+    load_data()
+    find_organisation_by_id()
+    count_organisations()
+    list_organisation_ids()
+    organisation_exists()
+    delete_organisation_by_id()
+    while (True):
+        response=input("(1) Add organisation (2) Print organisations (3) Exit ")
+        if response=="1":
+            add_organisation()
+        elif response =="2":
+            print_organisation()
+        elif response =="3":
+            save_data()
+            print("Bye bye!")
+            exit()
+        else:
+            print("Choose a number between 1 and 3")
+            continue
+main()
+
+'''
