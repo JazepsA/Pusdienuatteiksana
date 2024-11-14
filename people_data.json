@@ -57,5 +57,11 @@
         "name": "Janis",
         "age": "30",
         "city": "Garkalni"
+    },
+    {
+        "name": "Jazeps",
+        "age": "20",
+        "city": "Rezekne",
+        "pusdienuatteiksana": []
     }
 ]

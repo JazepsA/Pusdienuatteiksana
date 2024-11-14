@@ -48,7 +48,7 @@ class Atteicejs:
     id_iter= itertools.count()
 
     def __init__(self,vards,uzv,per_kods):
-        self.atteiksanasId=next(self.id_iter)+1
+        self.atteiksanasId=next(self.id_iter)
         self.vards=vards
         self.uzvards=uzv
         self.personasKods=per_kods
@@ -61,6 +61,7 @@ class Atteicejs:
 
 
     def Atteiceja_info_print(self):
+        print("Kartas Nr."+str(self.atteiksanasId))
         print("Atteiceja vards: "+ str(self.vards))
         print("Atteiceja uzvārds: " + str(self.uzvards))
         print("Atteiceja personas kods : "+ str(self.personasKods))

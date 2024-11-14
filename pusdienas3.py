@@ -9,7 +9,6 @@ from datetime import date
 
 
 
-
 class Atteikt:
     atteiksanasDatumsNo= ""
     atteiksanasDatumsLidz=""
@@ -80,14 +79,17 @@ except FileExistsError:
 
  
 while True:
-    name=input("Ievadiet vārdu: ")
-    age=input("Ievadiet vecumu: ")
-    city=input("Ievadiet pilsētu: ")
+    print("Labdien!")
+    a=input("Vai velaties atteikt pusdienas(y/n):  ")
+    if a == "y":
+        name=input("Ievadiet vārdu: ")
+        klase=input("Ievadiet klasi ,kurā jūs mācaties: ")
+
+
 
     people.append({
         "name":name,
-        "age":age,
-        "city":city,
+        "klase":klase,
         "pusdienuatteiksana":[]
     })
 
@@ -130,6 +132,14 @@ att1=Atteikt(name,age,city)
 '''
 Jauztaisa izveles ka organisation 
 pieskirt id katram jaunam cilvekam kas izveido savu kontu
+
+sakuma ir jauztaisa 2 pogas
+1.vai velaties registreties  .
+    Prassa vardu ,uzvardu ,klasei ,personas koda.programma iedos vinam savu id (id +1)pec kura velak vinu atrast 
+2. vai velaties atteikt pusdienas(ja jau esat datu baze)
+    uzprasit cilvekam vina id pec kura vinu atrast datu baze --- atrod cilveku
+    tad prasa cilvekam no kura datuma lidz kuram atteikt pusdieans izmantojot kalendaru vai vienkarsi izmantojot datetime lai vins no ievadita datetime lidz izvelatam datetime izrekina intervalu un izrekina cik naudas tiks ietaupits
+
 
 
 def main():
