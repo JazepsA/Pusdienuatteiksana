@@ -2,6 +2,16 @@ import itertools
 import datetime
 import json
 from datetime import date
+import sqlite3 as db
+
+with db.connect('pusdienuatteiksana.db') as con:
+    cur=con.cursor()
+    vards=int(input("Ievadiet savu vardu:"))
+    uzvards=input("Ievadiet savu uzvardu:")
+    klase=float(input("Ievadiet savu klasi:"))
+    tel_nr=input("Ievadiet savu telefona numuru: ")
+
+    cur.execute(''' INSERT INTO Atteicejs(produkta_id,nosaukums,cena,noliktava) VALUES (?,?,?,?) ''',(produkta_id,nosaukums,cena,noliktava))
 
 
 
@@ -132,18 +142,9 @@ att1=Atteikt(name,age,city)
 
 
 
+
+
 '''
-Jauztaisa izveles ka organisation 
-pieskirt id katram jaunam cilvekam kas izveido savu kontu
-
-sakuma ir jauztaisa 2 pogas
-1.vai velaties registreties  .
-    Prassa vardu ,uzvardu ,klasei ,personas koda.programma iedos vinam savu id (id +1)pec kura velak vinu atrast 
-2. vai velaties atteikt pusdienas(ja jau esat datu baze)
-    uzprasit cilvekam vina id pec kura vinu atrast datu baze --- atrod cilveku
-    tad prasa cilvekam no kura datuma lidz kuram atteikt pusdieans izmantojot kalendaru vai vienkarsi izmantojot datetime lai vins no ievadita datetime lidz izvelatam datetime izrekina intervalu un izrekina cik naudas tiks ietaupits
-
-
 
 def main():
     load_data()

@@ -5,9 +5,9 @@ import datetime
 from datetime import date
 
 
-def open_calendar():
+'''def open_calendar():
     os.system('kalendars.py')
-
+'''
 
 
 
@@ -67,7 +67,7 @@ class Atteicejs:
         print("Atteiceja personas kods : "+ str(self.personasKods))
 
 
-btn=tk.Button(text="Calendars",command=open_calendar)
+#btn=tk.Button(text="Calendars",command=open_calendar)
 
 
 

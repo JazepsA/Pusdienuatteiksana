@@ -63,5 +63,10 @@
         "age": "20",
         "city": "Rezekne",
         "pusdienuatteiksana": []
+    },
+    {
+        "name": "Jazeps",
+        "klase": "12",
+        "pusdienuatteiksana": []
     }
 ]

@@ -1,6 +1,24 @@
 import itertools
 import datetime
 from datetime import date
+import sqlite3 as db
+import sqlite3
+
+#conn=sqlite3.connect("pusdienuatteiksana.db")
+#cur=conn.cursor()
+
+def izsaukt_db():
+    with db.connect('pusdienuatteiksana.db') as con:
+def pievienot():
+    with db.connect('pusdienuatteiksana.db') as con:
+        cur=con.cursor()
+        id_atteicejs=int(input("Ievadiet atteiceja id: "))
+        vards=input("Ievadiet savu vardu:")
+        uzvards=input("Ievadiet savu uzvardu:")
+        klase=input("Ievadiet savu klasi:")
+        tel_nr=int(input("Ievadiet savu telefona numuru: "))
+        cur.execute(''' INSERT INTO Atteicejs(id_atteicejs,Vards,Uzvards,Klase,Tel_nr) VALUES (?,?,?,?,?) ''',(id_atteicejs,vards,uzvards,klase,tel_nr))
+        con.commit()
 
 class Atteikt:
     atteiksanasDatumsNo= ""
@@ -51,6 +69,30 @@ class Atteicejs:
         print("Atteiceja vards: "+ str(self.vards))
         print("Atteiceja uzvārds: " + str(self.uzvards))
         print("Atteiceja personas kods : "+ str(self.personasKods))
+
+def Izvada():
+    cur.execute("SELECT * FROM Atteicejs" )
+    order=cur.fetchall()
+    for i in order:
+        print(i)
+
+
+
+def main():
+    while (True):
+        response=input("(1) Pievienot jaunu cilveku(2) Izvadit informaciju (3) Exit ")
+        if response=="1":
+            pievienot()
+        elif response =="2":
+            Izvada()
+        elif response =="3":
+            print("Bye bye!")
+            exit()
+        else:
+            print("Choose a number between 1 and 3")
+            continue
+main()
+
 
 
 
