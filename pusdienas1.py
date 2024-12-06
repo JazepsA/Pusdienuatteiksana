@@ -7,18 +7,71 @@ import sqlite3
 #conn=sqlite3.connect("pusdienuatteiksana.db")
 #cur=conn.cursor()
 
-def izsaukt_db():
-    with db.connect('pusdienuatteiksana.db') as con:
-def pievienot():
-    with db.connect('pusdienuatteiksana.db') as con:
-        cur=con.cursor()
-        id_atteicejs=int(input("Ievadiet atteiceja id: "))
-        vards=input("Ievadiet savu vardu:")
-        uzvards=input("Ievadiet savu uzvardu:")
-        klase=input("Ievadiet savu klasi:")
-        tel_nr=int(input("Ievadiet savu telefona numuru: "))
-        cur.execute(''' INSERT INTO Atteicejs(id_atteicejs,Vards,Uzvards,Klase,Tel_nr) VALUES (?,?,?,?,?) ''',(id_atteicejs,vards,uzvards,klase,tel_nr))
-        con.commit()
+class Funkcijas():
+
+    def pievienot():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            id_atteicejs=int(input("Ievadiet atteiceja id: "))
+            vards=input("Ievadiet savu vardu:")
+            uzvards=input("Ievadiet savu uzvardu:")
+            klase=input("Ievadiet savu klasi:")
+            tel_nr=int(input("Ievadiet savu telefona numuru: "))
+            cur.execute(''' INSERT INTO Atteicejs(id_atteicejs,Vards,Uzvards,Klase,Tel_nr) VALUES (?,?,?,?,?) ''',(id_atteicejs,vards,uzvards,klase,tel_nr))
+            con.commit()
+    
+    def Izvada():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            cur.execute("SELECT * FROM Atteicejs" )
+            order=cur.fetchall()
+            for i in order:
+                print(i)
+
+    def dzest():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            while True:
+                gone=int(input("Ievadiet id ,kuru velaties izdzest (ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat dzest ara ,tad raksties '0')"))
+                if gone != 0 :
+                    con.execute(f"DELETE FROM Atteicejs WHERE id_atteicejs = {gone}")
+                    print("Dati tika dzesti!")
+                    con.commit()
+                    print(cur.rowcount,"Izdzests")
+
+                elif gone == 0:
+                    print("Jus atsutija atpakaļ!")
+                    break
+                else:
+                    pass
+    def atrast():
+        with db.connect('pusdienuatteiksana.db') as con:
+                    cur=con.cursor()
+                    while True:
+                        atrast=int(input("Ievadiet id ,kuru velaties atrast(ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat,tad raksties '0')"))
+                        if atrast != 0 :
+                            print(f"Persona ar {atrast} id tika atrasta  !")
+                            con.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atrast}")
+                            con.commit()
+                            info=cur.fetchall()
+                            print(info)
+                            for rinda in info:
+                                print(rinda)
+            
+                            
+
+                        elif atrast == 0:
+                            print("Jus atsutija atpakaļ!")
+                            break
+                        else:
+                            pass
+
+
+
+
+
+        
+        
 
 class Atteikt:
     atteiksanasDatumsNo= ""
@@ -70,22 +123,22 @@ class Atteicejs:
         print("Atteiceja uzvārds: " + str(self.uzvards))
         print("Atteiceja personas kods : "+ str(self.personasKods))
 
-def Izvada():
-    cur.execute("SELECT * FROM Atteicejs" )
-    order=cur.fetchall()
-    for i in order:
-        print(i)
+
 
 
 
 def main():
     while (True):
-        response=input("(1) Pievienot jaunu cilveku(2) Izvadit informaciju (3) Exit ")
+        response=input("(1) Pievienot jaunu cilveku(2) Izvadit informaciju (3)Izdzest personu (4)atrast atteiceju un atteikt pusd. (7) Exit ")
         if response=="1":
-            pievienot()
+            Funkcijas.pievienot()
         elif response =="2":
-            Izvada()
+            Funkcijas.Izvada()
         elif response =="3":
+            Funkcijas.dzest()
+        elif response == "4":
+            Funkcijas.atrast()
+        elif response =="7":
             print("Bye bye!")
             exit()
         else:
