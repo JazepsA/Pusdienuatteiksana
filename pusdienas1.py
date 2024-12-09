@@ -50,6 +50,7 @@ class Funkcijas():
                     while True:
                         atrast=int(input("Ievadiet id ,kuru velaties atrast(ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat,tad raksties '0')"))
                         if atrast != 0 :
+                            cur=con.cursor()
                             print(f"Persona ar {atrast} id tika atrasta  !")
                             con.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atrast}")
                             con.commit()
