@@ -28,45 +28,98 @@ class Funkcijas():
             for i in order:
                 print(i)
 
+
+#vajag lidz galam if !=0 
+
+
+
+    def atjaunot_info():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            while True:
+                atjauno=int(input("Ievadiet id ,kuru velaties atrast,lai redzet info ,kuru velaties atjaunot (ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat,tad raksties '0')"))
+                for i in range(len()):
+                    if i == atjauno:
+
+
+
+
+                        if atjauno != 0 :
+                            cur.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atjauno}")
+                            con.commit()
+                            info=cur.fetchall()
+                            for rinda in info:
+                                print(rinda)
+
+                            a=input("Ievadiet klasi ,kurā tagad mācaties: ")
+                            cur.execute(f"UPDATE Atteicejs set Klase={a} WHERE id_atteicejs = {atjauno}")
+                            print("Dati tika atjaunoti!")
+                            con.commit()
+                            break
+                        elif atjauno == 0:
+                            print("Jus atsutija atpakaļ!")
+                            break
+
     def dzest():
         with db.connect('pusdienuatteiksana.db') as con:
             cur=con.cursor()
             while True:
                 gone=int(input("Ievadiet id ,kuru velaties izdzest (ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat dzest ara ,tad raksties '0')"))
                 if gone != 0 :
-                    con.execute(f"DELETE FROM Atteicejs WHERE id_atteicejs = {gone}")
+                    cur.execute(f"DELETE FROM Atteicejs WHERE id_atteicejs = {gone}")
                     print("Dati tika dzesti!")
                     con.commit()
                     print(cur.rowcount,"Izdzests")
+                    break
 
                 elif gone == 0:
                     print("Jus atsutija atpakaļ!")
                     break
                 else:
                     pass
+    def ateikt_pus():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            id_atteiksana=int(input("Ievadiet atteiksanas id: "))
+            id_atteicejs=int(input("Ievadiet atteiceja id: "))
+            id_maksa=int(input("Ievadiet maksas veida id:"))
+            dat_no=input("Ievadiet datumu no (00.00.0000 formā ):")
+            dat_lidz=input("Ievadiet datumu līdz (00.00.0000 formā ):")
+            #dienas=input("Ievadiet savu telefona numuru: ")
+            cur.execute(''' INSERT INTO Atteiksana(id_atteiksana,id_atteicejs,id_maksa,Dat_no,Dat_lidz) VALUES (?,?,?,?,?) ''',(id_atteiksana,id_atteicejs,id_maksa,dat_no,dat_lidz,))
+            con.commit()
     def atrast():
         with db.connect('pusdienuatteiksana.db') as con:
                     cur=con.cursor()
                     while True:
                         atrast=int(input("Ievadiet id ,kuru velaties atrast(ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat,tad raksties '0')"))
                         if atrast != 0 :
-                            cur=con.cursor()
                             print(f"Persona ar {atrast} id tika atrasta  !")
-                            con.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atrast}")
+                            cur.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atrast}")
                             con.commit()
                             info=cur.fetchall()
-                            print(info)
                             for rinda in info:
                                 print(rinda)
-            
-                            
+
+                            print("Tagad atsakiet pusdienas!")
+                            Funkcijas.ateikt_pus()
+                            print("Pusdienu atteiksana tika atjaunota(ir jauni dati)!")
+                            break
 
                         elif atrast == 0:
                             print("Jus atsutija atpakaļ!")
                             break
                         else:
                             pass
-
+    def atteiksanas_vesture():
+        with db.connect('pusdienuatteiksana.db') as con:
+            cur=con.cursor()
+            a=int(input("Ievadiet atteiceja id ,kura pusdienas atteikšanas vēsturi jūs vēlētos uzzināt: "))
+            cur.execute(f"SELECT  Atteicejs.id_atteicejs,Vards,Uzvards,Klase,Dat_no,Dat_lidz FROM Atteicejs INNER JOIN Atteiksana ON Atteicejs.id_atteicejs == Atteiksana.id_atteicejs where Atteicejs.id_atteicejs= {a} ")
+            order=cur.fetchall()
+            print("\n Info:")
+            for i in order:
+                print(i)
 
 
 
@@ -130,7 +183,7 @@ class Atteicejs:
 
 def main():
     while (True):
-        response=input("(1) Pievienot jaunu cilveku(2) Izvadit informaciju (3)Izdzest personu (4)atrast atteiceju un atteikt pusd. (7) Exit ")
+        response=input("(1) Pievienot jaunu cilveku(2) Izvadit informaciju (3)Izdzest personu (4)atrast atteiceju un atteikt pusd. (5) atjaunot info par persou(klasi un telefona nr.) (6) atteiksanas vesture (7) Exit ")
         if response=="1":
             Funkcijas.pievienot()
         elif response =="2":
@@ -139,6 +192,10 @@ def main():
             Funkcijas.dzest()
         elif response == "4":
             Funkcijas.atrast()
+        elif response == "5":
+            Funkcijas.atjaunot_info()
+        elif response == "6":
+            Funkcijas.atteiksanas_vesture()
         elif response =="7":
             print("Bye bye!")
             exit()
