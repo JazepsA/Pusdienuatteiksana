@@ -38,27 +38,19 @@ class Funkcijas():
             cur=con.cursor()
             while True:
                 atjauno=int(input("Ievadiet id ,kuru velaties atrast,lai redzet info ,kuru velaties atjaunot (ja uzrakstita id nav tad rakstiet velreiz,ja pardomajat,tad raksties '0')"))
-                for i in range(len()):
-                    if i == atjauno:
+                cur.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atjauno}")
+                con.commit()
+                info=cur.fetchall()
+                if info != [] :
+                    print(info)
+                    a=input("Ievadiet klasi ,kurā tagad mācaties: ")
+                    cur.execute(f"UPDATE Atteicejs set Klase={a} WHERE id_atteicejs = {atjauno}")
+                    print("Dati tika atjaunoti!")
+                    con.commit()
+                    break
+                else:
+                    print("Ievadītā id nav datubāzē!")
 
-
-
-
-                        if atjauno != 0 :
-                            cur.execute(f"SELECT * FROM Atteicejs WHERE id_atteicejs = {atjauno}")
-                            con.commit()
-                            info=cur.fetchall()
-                            for rinda in info:
-                                print(rinda)
-
-                            a=input("Ievadiet klasi ,kurā tagad mācaties: ")
-                            cur.execute(f"UPDATE Atteicejs set Klase={a} WHERE id_atteicejs = {atjauno}")
-                            print("Dati tika atjaunoti!")
-                            con.commit()
-                            break
-                        elif atjauno == 0:
-                            print("Jus atsutija atpakaļ!")
-                            break
 
     def dzest():
         with db.connect('pusdienuatteiksana.db') as con:
