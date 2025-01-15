@@ -2,7 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import messagebox
 from admin import skolnieku_logs
-
+#from vecaki import vecaku_logs
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
@@ -12,7 +12,7 @@ def izveidot_galveno_logu():
         skolnieku_logs()
 
     def Vecaki_poga():
-        treneru_logs()
+        vecaku_logs()
     
 
     def apmeklejumi_poga():
@@ -32,6 +32,9 @@ def izveidot_galveno_logu():
     apmeklejumi_btn.pack(pady=10)
 
     logs.mainloop()
+
+
+
 
 
 if __name__ == "__main__":
