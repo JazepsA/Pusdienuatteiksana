@@ -2,7 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import messagebox
 from admin import skolnieku_logs
-#from vecaki import vecaku_logs
+from vecaki import vecaku_logs
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
@@ -20,7 +20,7 @@ def izveidot_galveno_logu():
 
     logs = tk.Tk()
     logs.title("Pusdienu atteiksana/samaksa")
-    logs.geometry("300x200")
+    logs.geometry("300x200+800+700")
 
     sportisti_btn = tk.Button(logs, text="Administrators", command=Administrators_poga, width=20, height=2, bg="lightblue")
     sportisti_btn.pack(pady=10)

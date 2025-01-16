@@ -75,6 +75,39 @@ def meklēt_skolnieku():
     meklēt_btn.pack(pady=10)
 
 
+
+
+def atjaunot_info():
+    def atjauno_info():
+        id_atteicejs =id_atteicejs_entry.get()
+        if id_atteicejs:
+            cursor.execute("SELECT * FROM Atteicejs WHERE id_atteicejs LIKE ?", (f"%{id_atteicejs}%",))
+            rezultati = cursor.fetchall()
+            if rezultati:
+                rezultati_str = ""
+                for r in rezultati:
+                    rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}\n"
+                    messagebox.showinfo("Rezultāti", f"ID:{r[0]}  Vards: {r[1]} Uzvards: {r[2]}, Klase: {r[3]}, Telefona numurs: {r[4]}\n")
+
+
+            else:
+                messagebox.showinfo("Rezultāti", f"Netika atrasts neviens skolnieks ar id {id_atteicejs}.")
+        else:
+            messagebox.showerror("Kļūda", "Lūdzu, ievadiet korektu skolnieka id!")
+
+    logs = tk.Toplevel()
+    logs.title("Rediģēt skolnieka informāciju")
+    logs.geometry("300x200")
+
+    tk.Label(logs, text="Skolnieka id:").pack()
+    id_atteicejs_entry = tk.Entry(logs)
+    id_atteicejs_entry.pack()
+
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=atjauno_info)
+    meklēt_btn.pack(pady=10)
+
+
+
 def dzēst_skolnieku():
     def dzēst_skolnieku_no_db():
         id_skolnieka = id_skolnieka_entry.get()
@@ -101,7 +134,7 @@ def dzēst_skolnieku():
 def skolnieku_logs():
     skolnieki_logs = tk.Toplevel()
     skolnieki_logs.title("Skolnieku pārvaldība")
-    skolnieki_logs.geometry("300x250")
+    skolnieki_logs.geometry("300x350")
 
     pievienot_btn = tk.Button(skolnieki_logs, text="Pievienot skolnieku", command=pievienot_skolnieku, width=25, height=2, bg="lightblue")
     pievienot_btn.pack(pady=10)
@@ -109,7 +142,11 @@ def skolnieku_logs():
     meklēt_btn = tk.Button(skolnieki_logs, text="Meklēt skolnieku", command=meklēt_skolnieku, width=25, height=2, bg="lightgreen")
     meklēt_btn.pack(pady=10)
 
+    meklēt_btn = tk.Button(skolnieki_logs, text="Rediģēt skolnieka info", command=atjaunot_info, width=25, height=2, bg="DarkGoldenrod1")
+    meklēt_btn.pack(pady=10)
+
     dzēst_btn = tk.Button(skolnieki_logs, text="Dzēst skolnieku", command=dzēst_skolnieku, width=25, height=2, bg="lightyellow")
     dzēst_btn.pack(pady=10)
 
     iziet_btn = tk.Button(skolnieki_logs, text="Iziet", command=skolnieki_logs.destroy, width=25, height=2, bg="red", fg="white")
+    iziet_btn.pack(pady=10)
