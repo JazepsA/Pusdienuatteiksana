@@ -87,7 +87,7 @@ def atjaunot_info():
                 rezultati_str = ""
                 for r in rezultati:
                     rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}\n"
-                    messagebox.showinfo("Rezultāti", f"ID:{r[0]}  Vards: {r[1]} Uzvards: {r[2]}, Klase: {r[3]}, Telefona numurs: {r[4]}\n")
+                    tk.Label(logs, text=f"Rezultāti\n ID:{r[0]} \n Vards: {r[1]}\n Uzvards: {r[2]}\n Klase: {r[3]}\n Telefona numurs: {r[4]}\n").pack()
 
 
             else:
@@ -105,6 +105,9 @@ def atjaunot_info():
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atjauno_info)
     meklēt_btn.pack(pady=10)
+
+    atveras_btn=tk.Button(logs,text="Informācija par skolnieku",command=atveras)
+    atveras_btn.pack(pady=10)
 
 
 
@@ -134,7 +137,7 @@ def dzēst_skolnieku():
 def skolnieku_logs():
     skolnieki_logs = tk.Toplevel()
     skolnieki_logs.title("Skolnieku pārvaldība")
-    skolnieki_logs.geometry("300x350")
+    skolnieki_logs.geometry(f"300x350+{int((skolnieki_logs.winfo_screenwidth())/2)-150}+{int((skolnieki_logs.winfo_screenheight())/2)-175}")
 
     pievienot_btn = tk.Button(skolnieki_logs, text="Pievienot skolnieku", command=pievienot_skolnieku, width=25, height=2, bg="lightblue")
     pievienot_btn.pack(pady=10)

@@ -81,7 +81,7 @@ def aprekinat_pusdienas():
 def vecaku_logs():
     vecaki_logs = tk.Toplevel()
     vecaki_logs.title("Pusdienu atteikšanas pārvaldība")
-    vecaki_logs.geometry("300x250")
+    vecaki_logs.geometry(f"300x200+{int((vecaki_logs.winfo_screenwidth())/2)-150}+{int((vecaki_logs.winfo_screenheight())/2)-75}")
 
     pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue")
     pievienot_btn.pack(pady=10)

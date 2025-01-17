@@ -15,12 +15,11 @@ def izveidot_galveno_logu():
         vecaku_logs()
     
 
-    def apmeklejumi_poga():
-        messagebox.showinfo("Apmeklējumi", "Atvērta apmeklējumu pārvaldība.")
 
     logs = tk.Tk()
     logs.title("Pusdienu atteiksana/samaksa")
-    logs.geometry("300x200+800+700")
+    logs.geometry(f"300x150+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-75}")
+
 
     sportisti_btn = tk.Button(logs, text="Administrators", command=Administrators_poga, width=20, height=2, bg="lightblue")
     sportisti_btn.pack(pady=10)
@@ -28,8 +27,6 @@ def izveidot_galveno_logu():
     treneri_btn = tk.Button(logs, text="Vecāki", command=Vecaki_poga, width=20, height=2, bg="lightgreen")
     treneri_btn.pack(pady=10)
 
-    apmeklejumi_btn = tk.Button(logs, text="Apmeklējumi", command=apmeklejumi_poga, width=20, height=2, bg="lightyellow")
-    apmeklejumi_btn.pack(pady=10)
 
     logs.mainloop()
 
