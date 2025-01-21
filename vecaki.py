@@ -48,7 +48,7 @@ def atteikt_pusdienas():
     Dienas_entry = tk.Entry(logs)
     Dienas_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att)
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
 
 
@@ -75,19 +75,19 @@ def aprekinat_pusdienas():
     pusdienu_cena_entry = tk.Entry(logs)
     pusdienu_cena_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=aprekinasana)
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=aprekinasana,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
 
 def vecaku_logs():
     vecaki_logs = tk.Toplevel()
     vecaki_logs.title("Pusdienu atteikšanas pārvaldība")
-    vecaki_logs.geometry(f"300x200+{int((vecaki_logs.winfo_screenwidth())/2)-150}+{int((vecaki_logs.winfo_screenheight())/2)-75}")
+    vecaki_logs.geometry(f"300x220+{int((vecaki_logs.winfo_screenwidth())/2)-150}+{int((vecaki_logs.winfo_screenheight())/2)-110}")
 
-    pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue")
+    pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)
 
-    pievienot_btn = tk.Button(vecaki_logs, text="Aprēķināt pusdienu maksu", command=aprekinat_pusdienas, width=25, height=2, bg="lightblue")
+    pievienot_btn = tk.Button(vecaki_logs, text="Aprēķināt pusdienu maksu", command=aprekinat_pusdienas, width=25, height=2, bg="lightgrey",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)
 
-    iziet_btn = tk.Button(vecaki_logs, text="Iziet", command=vecaki_logs.destroy, width=25, height=2, bg="red", fg="white")
+    iziet_btn = tk.Button(vecaki_logs, text="Iziet", command=vecaki_logs.destroy, width=25, height=2, bg="red", fg="white",font="bold",borderwidth=3)
     iziet_btn.pack(pady=10)
