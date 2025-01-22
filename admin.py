@@ -82,14 +82,14 @@ def atjaunot_info():
         id_atteicejs =id_atteicejs_entry.get()
         if id_atteicejs:
             #cursor.execute("SELECT id_atteicejs, Vards,Uzvards,Klase,Maksa,Dienas FROM Atteicejs INNER JOIN Atteiksana on Atteicejs.id_atteicejs = Atteiksana.id_atteicejs INNER JOIN Maksa on Maksa.id_maksa = Atteiksana.id_maksa  WHERE id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",))
-            cursor.execute("SELECT Atteicejs.id_atteicejs,Vards,Uzvards,Klase,Tel_nr FROM Atteicejs INNER JOIN Atteiksana on Atteicejs.id_atteicejs = Atteiksana.id_atteicejs WHERE id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",))
+            cursor.execute("SELECT Vards,Uzvards,Klase , Maksa.Maksa FROM Atteicejs INNER JOIN Atteiksana ON Atteicejs.id_atteicejs= Atteiksana.id_atteicejs INNER JOIN Maksa ON Atteiksana.id_maksa= Maksa.id_maksa WHERE Atteicejs.id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",) )    
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
                 for r in rezultati:
-                    rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}\n"
+                    rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
 
-                    tk.Label(logs, text=f"Rezultāti\n ID:{r[0]} \n Vards: {r[1]}\n Uzvards: {r[2]}\n Klase: {r[3]}\n Maksas veids: {r[4]}\n").pack()
+                    tk.Label(logs, text=f"Rezultāti\n Vārds:{r[0]} \n Uzvārds: {r[1]}\n Klase: {r[2]}\n Maksas veids:{r[3]}\n").pack()
 
 
             else:
