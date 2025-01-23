@@ -1,22 +1,41 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+import sys
+from datetime import datetime
+
 
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
+
+
+    
 def atteikt_pusdienas():
     def saglabat_pusdienu_att():
         id_atteicejs = id_atteicejs_entry.get()
         id_maksa = id_maksa_entry.get()
         Dat_no = Dat_no_entry.get()
         Dat_lidz = Dat_lidz_entry.get()
-        Dienas = Dienas_entry.get()
 
-        if id_atteicejs and id_maksa and Dat_no and Dat_lidz and Dienas:
+
+        if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
+
+            try:
+                Pirmais = datetime.strptime(Dat_no, '%d/%m/%Y')
+                Otrais = datetime.strptime(Dat_lidz, '%d/%m/%Y')
+                starp=Otrais - Pirmais
+            except ValueError:
+                tk.Label(logs, text="Nepariezi ievadīts datums!")
+
+            
+
+
+            
+
             cursor.execute(
-                "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz, Dienas) VALUES (?, ?, ?, ?, ?)",
-                (id_atteicejs, id_maksa, Dat_no, Dat_lidz, Dienas)
+                "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz,Dienas) VALUES (?, ?, ?, ?,?)",
+                (id_atteicejs, id_maksa, Dat_no, Dat_lidz,str(starp))
             )
             conn.commit()
             messagebox.showinfo("Veiksmīgi", "Pusdienas ir veiksmīgi atteiktas!")
@@ -44,9 +63,7 @@ def atteikt_pusdienas():
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
 
-    tk.Label(logs, text="Dienas:").pack()
-    Dienas_entry = tk.Entry(logs)
-    Dienas_entry.pack()
+
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)

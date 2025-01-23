@@ -1,8 +1,9 @@
 from datetime import datetime
+import sys
 
 
 
-datestring = input("Please enter first a date in form dd/mm/yyyy: ")
+datestring = input("Ievadiet datumu no kura vēlaties atteikt pusdienas dd/mm/yyyy: ")
 
 
 try:
@@ -11,17 +12,19 @@ try:
 
 
 except ValueError:
-    print("Invalid date entered!")
+    print("Nepareizi ievadīts datums!")
+    sys.exit()
     
-datestring2= input("Please enter second a date in form dd/mm/yyyy: ")
+datestring2= input("Ievadiet datumu līdz kuram vēlaties atteikt pusdienas dd/mm/yyyy: ")
 try:
 
     date2 = datetime.strptime(datestring2, '%d/%m/%Y')
     print(date)
     print(date2)
     starp=date2 - date
-    print("Difference in dates:", starp)
+    print("Dienas:", starp)
 
 except ValueError:
-    print("Invalid date entered!")
+    print("Nepareizi ievadīts datums!")
+    sys.exit()
 
