@@ -1,6 +1,7 @@
 import sqlite3
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox,ttk
+from tkinter import ttk
 
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
@@ -81,7 +82,6 @@ def atjaunot_info():
     def atjauno_info():
         id_atteicejs =id_atteicejs_entry.get()
         if id_atteicejs:
-            #cursor.execute("SELECT id_atteicejs, Vards,Uzvards,Klase,Maksa,Dienas FROM Atteicejs INNER JOIN Atteiksana on Atteicejs.id_atteicejs = Atteiksana.id_atteicejs INNER JOIN Maksa on Maksa.id_maksa = Atteiksana.id_maksa  WHERE id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",))
             cursor.execute("SELECT Vards,Uzvards,Klase , Maksa.Maksa FROM Atteicejs INNER JOIN Atteiksana ON Atteicejs.id_atteicejs= Atteiksana.id_atteicejs INNER JOIN Maksa ON Atteiksana.id_maksa= Maksa.id_maksa WHERE Atteicejs.id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",) )    
             rezultati = cursor.fetchall()
             if rezultati:
@@ -96,6 +96,30 @@ def atjaunot_info():
                 messagebox.showinfo("Rezultāti", f"Netika atrasts neviens skolnieks ar id {id_atteicejs}.")
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet korektu skolnieka id!")
+
+        ttk.Label(logs, text = "Izvēlieties ,ko vēlaties pamainīt: ",  font = ("Times New Roman", 10)).grid(column = 0, row = 15, padx = 10, pady = 25) 
+            
+        n = tk.StringVar() 
+        monthchoosen = ttk.Combobox(logs, width = 27,textvariable = n) 
+            
+            
+        monthchoosen['values'] = (' January',  
+                                    ' February', 
+                                    ' March', 
+                                    ' April', 
+                                    ' May', 
+                                    ' June',  
+                                    ' July',  
+                                    ' August',  
+                                    ' September',  
+                                    ' October',  
+                                    ' November',  
+                                    ' December') 
+            
+        monthchoosen.grid(column = 1, row = 15) 
+
+
+
 
     logs = tk.Toplevel()
     logs.title("Rediģēt skolnieka informāciju")
