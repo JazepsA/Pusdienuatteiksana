@@ -11,6 +11,7 @@ cursor = conn.cursor()
 
 
 
+# Funkcija , kas izveido logu ,kuru lietotājs redzēs ieslēdzot to . 
 
 def izveidot_galveno_logu():
     def Administrators_poga():

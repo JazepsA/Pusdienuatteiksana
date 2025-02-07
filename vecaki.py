@@ -9,7 +9,7 @@ conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
 
-
+#Funkcija , kas ļauj atteikt pusdienas ,izveidot pusdienu atteikšanu.
     
 def atteikt_pusdienas():
     def saglabat_pusdienu_att():
@@ -68,6 +68,7 @@ def atteikt_pusdienas():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
 
+#Funkcija ar kuras palīdzību var aprēķināt pusdienu summu.
 
 def aprekinat_pusdienas():
     def aprekinasana():
@@ -94,6 +95,8 @@ def aprekinat_pusdienas():
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=aprekinasana,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
+
+#Funkcija , kas satur visas citas funkcijas.
 
 def vecaku_logs():
     vecaki_logs = tk.Toplevel()

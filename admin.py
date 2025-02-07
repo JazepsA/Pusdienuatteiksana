@@ -6,6 +6,9 @@ from tkinter import ttk
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
+
+#Funkcija , kas ļauj pievienot jaunus skolniekus.
+
 def pievienot_skolnieku():
     def saglabat_skolnieku():
         vards = vards_entry.get()
@@ -47,6 +50,7 @@ def pievienot_skolnieku():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_skolnieku,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
 
+#Funkcija , kas ļauj atrast skolnieku.
 
 def meklēt_skolnieku():
     def atrast_skolnieku():
@@ -76,7 +80,7 @@ def meklēt_skolnieku():
     meklēt_btn.pack(pady=10)
 
 
-
+#Funkcija , kas ļauj atjaunot informāciju par skolnieku.
 
 def atjaunot_info():
     def atjauno_info():
@@ -135,7 +139,7 @@ def atjaunot_info():
     #atveras_btn=tk.Button(logs,text="Informācija par skolnieku",command=atveras)
     #atveras_btn.pack(pady=10)
 
-
+#Funkcija , kas ļauj idzēst skolnieku no datu bāzes.
 
 def dzēst_skolnieku():
     def dzēst_skolnieku_no_db():
@@ -159,6 +163,7 @@ def dzēst_skolnieku():
     dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_skolnieku_no_db,overrelief="ridge",font=("Arial",11,"bold"))
     dzēst_btn.pack(pady=10)
 
+#Funkcija , kas satur visas citas funkcijas .
 
 def skolnieku_logs():
     skolnieki_logs = tk.Toplevel()
