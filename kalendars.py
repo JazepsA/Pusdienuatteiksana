@@ -1,41 +1,33 @@
-
-
-import os 
-import tkinter
-from tkinter import *
+import tkinter as tk
+from tkinter import ttk
 from tkcalendar import Calendar
- 
-# Create Object
-root = Tk()
- 
-# Set geometry
-root.geometry("400x400")
- 
-# Add Calendar
-cal = Calendar(root, selectmode = 'day',
-               year = 2024, month = 11,
-               day = 22)
- 
-cal.pack(pady = 20)
- 
+import sqlite3
+from tkinter import messagebox
 
-def grad_date():
-    date.config(text = "Selected Date is: " + cal.get_date())
-    print(cal.get_date())
+conn = sqlite3.connect('pusdienuatteiksana.db')
+cursor = conn.cursor()
 
-
-# Add Button and Label
-
-Button(root, text = "Get Date",command = grad_date).pack(pady = 20)
+def kalendars():
+    def print_sel():
+        print(cal.selection_get())
+        if cal.selection_get():
+            cursor.execute('INSERT INTO Atteiksana (Datums_no) VALUES (?)', (f"{cal.selection_get()}",))
+            conn.commit()
+            messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+    
+    top = tk.Toplevel(root)
+    cal = Calendar(top,
+                   font = 'Ariel 13' , selectnode= 'day',
+                   cursor = 'hand1' , year = 2025 , month = 2 ,day = 5)
+    cal.pack(fill = 'both', expand=True)
+    ttk.Button(top , text = 'ok', command= print_sel).pack()
 
 
 
+root = tk.Tk()
+s = ttk.Style(root)
+root.geometry('160x160+500+500')
+s.theme_use('clam')
+ttk.Button(root,text='Kalendārs',command=kalendars).pack(padx=10,pady=10)
 
-date = Label(root, text = "")
-
-
-date.pack(pady = 20)
- 
-# Execute Tkinter
 root.mainloop()
-

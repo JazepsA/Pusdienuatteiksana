@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 import sys
 from datetime import datetime
+#from kalendars import kalendars
+
 
 
 conn = sqlite3.connect('pusdienuatteiksana.db')
@@ -63,6 +65,10 @@ def atteikt_pusdienas():
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
 
+    
+    tk.Label(logs, text="Kalendars").pack()
+    Dat_lidz_entry = tk.Entry(logs)
+    Dat_lidz_entry.pack()
 
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
@@ -105,6 +111,7 @@ def vecaku_logs():
 
     pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)
+
 
     pievienot_btn = tk.Button(vecaki_logs, text="Aprēķināt pusdienu maksu", command=aprekinat_pusdienas, width=25, height=2, bg="lightgrey",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)
