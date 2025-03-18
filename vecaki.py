@@ -3,6 +3,9 @@ import tkinter as tk
 from tkinter import messagebox
 import sys
 from datetime import datetime
+import re
+from tkcalendar import Calendar
+
 #from kalendars import kalendars
 
 
@@ -12,8 +15,26 @@ cursor = conn.cursor()
 
 
 #Funkcija , kas ļauj atteikt pusdienas ,izveidot pusdienu atteikšanu.
-    
+
 def atteikt_pusdienas():
+    
+    def kalendars():
+        def print_sel():
+            print(cal.selection_get())
+            if cal.selection_get():
+                cursor.execute('INSERT INTO Atteiksana (Datums_no) VALUES (?)', (f"{cal.selection_get()}",))
+                conn.commit()
+                messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+        
+        top = tk.Toplevel(logs)
+        cal = Calendar(top,
+                    font = 'Ariel 13' , selectnode= 'day',
+                    cursor = 'hand1' , year = 2025 , month = 2 ,day = 5)
+        cal.pack(fill = 'both', expand=True)
+        tk.Button(top , text = 'ok', command= print_sel).pack()
+
+
+
     def saglabat_pusdienu_att():
         id_atteicejs = id_atteicejs_entry.get()
         id_maksa = id_maksa_entry.get()
@@ -21,11 +42,16 @@ def atteikt_pusdienas():
         Dat_lidz = Dat_lidz_entry.get()
 
 
+        pattern = r'\d+$'
+    
+        if not re.match(pattern, id_atteicejs):
+            messagebox.showerror("Rezultāts", "Vards nav derīga!")
+
         if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
 
             try:
-                Pirmais = datetime.strptime(Dat_no, '%d/%m/%Y')
-                Otrais = datetime.strptime(Dat_lidz, '%d/%m/%Y')
+                Pirmais = datetime.strptime(Dat_no, '%d-%m-%Y')
+                Otrais = datetime.strptime(Dat_lidz, '%d-%m-%Y')
                 starp=Otrais - Pirmais
             except ValueError:
                 tk.Label(logs, text="Nepariezi ievadīts datums!")
@@ -59,17 +85,19 @@ def atteikt_pusdienas():
 
     tk.Label(logs, text="No:").pack()
     Dat_no_entry = tk.Entry(logs)
-    Dat_no_entry.pack()
+    Dat_no_entry.pack() 
+        
 
     tk.Label(logs, text="Līdz:").pack()
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
 
-    
-    tk.Label(logs, text="Kalendars").pack()
-    Dat_lidz_entry = tk.Entry(logs)
-    Dat_lidz_entry.pack()
 
+    
+    
+    kalendar= tk.Button(logs, text="", command=kalendars,overrelief="ridge",font=("Arial",11,"bold"))
+    kalendar.pack(pady=10)
+    kalendar.place(x=200,y=100)
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
