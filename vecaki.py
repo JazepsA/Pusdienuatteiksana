@@ -75,29 +75,39 @@ def atteikt_pusdienas():
     logs.title("Atteikt pusdienas")
     logs.geometry("300x300")
 
-    tk.Label(logs, text="id_skolnieka:").pack()
+    Lower_left=tk.Label(logs, text="id_skolnieka:")
     id_atteicejs_entry = tk.Entry(logs)
     id_atteicejs_entry.pack()
+    id_atteicejs_entry.place(x=20,y=60)
 
-    tk.Label(logs, text="id_maksa:").pack()
+    Lower_left.place(x=20,y=40)
+
+
+    Lower_left1=tk.Label(logs, text="id_maksa:")
     id_maksa_entry = tk.Entry(logs)
     id_maksa_entry.pack()
+    id_maksa_entry.place(x=20,y=100)
+
+    Lower_left1.place(x=20,y=80)      jkwjkeh1212233
+
 
     tk.Label(logs, text="No:").pack()
     Dat_no_entry = tk.Entry(logs)
-    Dat_no_entry.pack() 
+    Dat_no_entry.pack()
+
         
 
     tk.Label(logs, text="Līdz:").pack()
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
+ 
 
 
     
     
     kalendar= tk.Button(logs, text="", command=kalendars,overrelief="ridge",font=("Arial",11,"bold"))
     kalendar.pack(pady=10)
-    kalendar.place(x=200,y=100)
+    kalendar.place(x=40,y=60)
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
