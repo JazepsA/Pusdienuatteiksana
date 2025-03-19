@@ -22,9 +22,30 @@ def atteikt_pusdienas():
         def print_sel():
             print(cal.selection_get())
             if cal.selection_get():
-                cursor.execute('INSERT INTO Atteiksana (Datums_no) VALUES (?)', (f"{cal.selection_get()}",))
+                cursor.execute('INSERT INTO Atteiksana (Dat_no) VALUES (?)', (f"{cal.selection_get()}",))
                 conn.commit()
+                top.destroy()
                 messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+            
+        
+        top = tk.Toplevel(logs)
+        cal = Calendar(top,
+                    font = 'Ariel 13' , selectnode= 'day',
+                    cursor = 'hand1' , year = 2025 , month = 2 ,day = 5)
+        cal.pack(fill = 'both', expand=True)
+        tk.Button(top , text = 'ok', command= print_sel).pack()
+
+
+    def kalendars2():
+        def print_sel():
+            print(cal.selection_get())
+            if cal.selection_get():
+                cursor.execute('INSERT INTO Atteiksana (Dat_lidz) VALUES (?)', (f"{cal.selection_get()}",))
+                conn.commit()
+                top.destroy()
+                messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+                
+
         
         top = tk.Toplevel(logs)
         cal = Calendar(top,
@@ -78,28 +99,34 @@ def atteikt_pusdienas():
     Lower_left=tk.Label(logs, text="id_skolnieka:")
     id_atteicejs_entry = tk.Entry(logs)
     id_atteicejs_entry.pack()
-    id_atteicejs_entry.place(x=20,y=60)
+    id_atteicejs_entry.place(x=80,y=40)
 
-    Lower_left.place(x=20,y=40)
+    Lower_left.place(x=80,y=20)
 
 
     Lower_left1=tk.Label(logs, text="id_maksa:")
     id_maksa_entry = tk.Entry(logs)
     id_maksa_entry.pack()
-    id_maksa_entry.place(x=20,y=100)
+    id_maksa_entry.place(x=80,y=80)
 
-    Lower_left1.place(x=20,y=80)      jkwjkeh1212233
+    Lower_left1.place(x=80,y=60)
 
 
-    tk.Label(logs, text="No:").pack()
+    Lower_left2=tk.Label(logs, text="No:")
     Dat_no_entry = tk.Entry(logs)
     Dat_no_entry.pack()
+    Dat_no_entry.place(x=80,y=120)
 
+
+    Lower_left2.place(x=80,y=100)
         
 
-    tk.Label(logs, text="Līdz:").pack()
+    Lower_left3=tk.Label(logs, text="Līdz:")
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
+    Dat_lidz_entry.place(x=80,y=160)
+    
+    Lower_left3.place(x=80,y=140)
  
 
 
@@ -107,10 +134,16 @@ def atteikt_pusdienas():
     
     kalendar= tk.Button(logs, text="", command=kalendars,overrelief="ridge",font=("Arial",11,"bold"))
     kalendar.pack(pady=10)
-    kalendar.place(x=40,y=60)
+    kalendar.place(x=215,y=115)
+
+    kalendar2= tk.Button(logs, text="", command=kalendars2,overrelief="ridge",font=("Arial",11,"bold"))
+    kalendar2.pack(pady=10)
+    kalendar2.place(x=215,y=135)
+
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
+    saglabat_btn.place(x=100,y=200)
 
 #Funkcija ar kuras palīdzību var aprēķināt pusdienu summu.
 
@@ -145,7 +178,7 @@ def aprekinat_pusdienas():
 def vecaku_logs():
     vecaki_logs = tk.Toplevel()
     vecaki_logs.title("Pusdienu atteikšanas pārvaldība")
-    vecaki_logs.geometry(f"300x220+{int((vecaki_logs.winfo_screenwidth())/2)-150}+{int((vecaki_logs.winfo_screenheight())/2)-110}")
+    vecaki_logs.geometry(f"325x270+{int((vecaki_logs.winfo_screenwidth())/2)-162}+{int((vecaki_logs.winfo_screenheight())/2)-135}")
 
     pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)

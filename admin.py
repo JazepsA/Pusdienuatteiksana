@@ -2,6 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import messagebox,ttk
 from tkinter import ttk
+import re
 
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
@@ -15,6 +16,14 @@ def pievienot_skolnieku():
         uzvards = uzvards_entry.get()
         klase = klase_entry.get()
         telefons = telefons_entry.get()
+
+        pattern= r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+        if not re.match(pattern, vards):
+            messagebox.showerror("Rezultāts", "Nepareizi ievadīts vārds!")
+
+        pattern2= r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+        if not re.match(pattern2, uzvards):
+            messagebox.showerror("Rezultāts", "Nepareizi ievadīts uzvārds!")
 
         if vards and uzvards and telefons.isdigit() and klase.isdigit():
             cursor.execute(
