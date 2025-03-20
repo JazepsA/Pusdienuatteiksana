@@ -25,7 +25,11 @@ def pievienot_skolnieku():
         if not re.match(pattern2, uzvards):
             messagebox.showerror("Rezultāts", "Nepareizi ievadīts uzvārds!")
 
-        if vards and uzvards and telefons.isdigit() and klase.isdigit():
+        pattern3= r'\d{1,2}+$|\d[1-9]{1}.[a-z]+$|[a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+        if not re.match(pattern, vards):
+            messagebox.showerror("Rezultāts", "Nepareizi ievadīts vārds!")
+
+        if vards and uzvards and telefons and klase:
             cursor.execute(
                 "INSERT INTO Atteicejs (Vards,Uzvards,Klase,Tel_nr) VALUES (?, ?, ?, ?)",
                 (vards, uzvards, int(klase), int(telefons))
