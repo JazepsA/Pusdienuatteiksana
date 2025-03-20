@@ -1,4 +1,5 @@
 import sqlite3
+from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 import sys
@@ -94,39 +95,39 @@ def atteikt_pusdienas():
 
     logs = tk.Toplevel()
     logs.title("Atteikt pusdienas")
-    logs.geometry("300x300")
+    logs.geometry("400x400")
 
     Lower_left=tk.Label(logs, text="id_skolnieka:")
     id_atteicejs_entry = tk.Entry(logs)
     id_atteicejs_entry.pack()
-    id_atteicejs_entry.place(x=80,y=40)
+    id_atteicejs_entry.place(relx = 0.5 , rely = 0.1, anchor = CENTER)
 
-    Lower_left.place(x=80,y=20)
+    Lower_left.place(relx = 0.5 , rely = 0.05, anchor = CENTER)
 
 
     Lower_left1=tk.Label(logs, text="id_maksa:")
     id_maksa_entry = tk.Entry(logs)
     id_maksa_entry.pack()
-    id_maksa_entry.place(x=80,y=80)
+    id_maksa_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
 
-    Lower_left1.place(x=80,y=60)
+    Lower_left1.place(relx = 0.5 , rely = 0.15, anchor = CENTER)
 
 
     Lower_left2=tk.Label(logs, text="No:")
     Dat_no_entry = tk.Entry(logs)
     Dat_no_entry.pack()
-    Dat_no_entry.place(x=80,y=120)
+    Dat_no_entry.place(relx = 0.5 , rely = 0.3, anchor = CENTER)
 
 
-    Lower_left2.place(x=80,y=100)
+    Lower_left2.place(relx = 0.5 , rely = 0.25, anchor = CENTER)
         
 
     Lower_left3=tk.Label(logs, text="Līdz:")
     Dat_lidz_entry = tk.Entry(logs)
     Dat_lidz_entry.pack()
-    Dat_lidz_entry.place(x=80,y=160)
+    Dat_lidz_entry.place(relx = 0.5 , rely = 0.4, anchor = CENTER)
     
-    Lower_left3.place(x=80,y=140)
+    Lower_left3.place(relx = 0.5 , rely = 0.35, anchor = CENTER)
  
 
 
@@ -134,16 +135,16 @@ def atteikt_pusdienas():
     
     kalendar= tk.Button(logs, text="", command=kalendars,overrelief="ridge",font=("Arial",11,"bold"))
     kalendar.pack(pady=10)
-    kalendar.place(x=215,y=115)
+    kalendar.place(relx = 0.5 , rely = 0.3,x=80, anchor = CENTER)
 
     kalendar2= tk.Button(logs, text="", command=kalendars2,overrelief="ridge",font=("Arial",11,"bold"))
     kalendar2.pack(pady=10)
-    kalendar2.place(x=215,y=135)
+    kalendar2.place(relx = 0.5 , rely = 0.4,x=80, anchor = CENTER)
 
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_pusdienu_att,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
-    saglabat_btn.place(x=100,y=200)
+    saglabat_btn.place(relx = 0.5 , rely = 0.5, anchor = CENTER)
 
 #Funkcija ar kuras palīdzību var aprēķināt pusdienu summu.
 
@@ -162,16 +163,23 @@ def aprekinat_pusdienas():
     logs.title("Aprēķināt pusdienu cenu")
     logs.geometry("300x300")
     
-    tk.Label(logs, text="Dienas:").pack()
+    u=tk.Label(logs, text="Dienas:")
     dienas_entry = tk.Entry(logs)
     dienas_entry.pack()
+    dienas_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
 
-    tk.Label(logs, text="Pusdienu cena:").pack()
+    u.place(relx = 0.5 , rely = 0.1, anchor = CENTER)
+
+    uu=tk.Label(logs, text="Pusdienu cena:")
     pusdienu_cena_entry = tk.Entry(logs)
     pusdienu_cena_entry.pack()
+    pusdienu_cena_entry.place(relx = 0.5 , rely = 0.4, anchor = CENTER)
+
+    uu.place(relx = 0.5 , rely = 0.3, anchor = CENTER)
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=aprekinasana,overrelief="ridge",font=("Arial",11,"bold"))
     saglabat_btn.pack(pady=10)
+    saglabat_btn.place(relx = 0.5 , rely = 0.55, anchor = CENTER)
 
 #Funkcija , kas satur visas citas funkcijas.
 
@@ -182,10 +190,14 @@ def vecaku_logs():
 
     pievienot_btn = tk.Button(vecaki_logs, text="Atteikt pusdienas", command=atteikt_pusdienas, width=25, height=2, bg="lightblue",font="bold",borderwidth=3)
     pievienot_btn.pack(pady=10)
+    pievienot_btn.place(relx = 0.5 , rely = 0.2,y=20, anchor = CENTER)
 
 
-    pievienot_btn = tk.Button(vecaki_logs, text="Aprēķināt pusdienu maksu", command=aprekinat_pusdienas, width=25, height=2, bg="lightgrey",font="bold",borderwidth=3)
-    pievienot_btn.pack(pady=10)
+    pievienot_btn1 = tk.Button(vecaki_logs, text="Aprēķināt pusdienu maksu", command=aprekinat_pusdienas, width=25, height=2, bg="lightgrey",font="bold",borderwidth=3)
+    pievienot_btn1.pack(pady=10)
+    pievienot_btn1.place(relx = 0.5 , rely = 0.4,y=20, anchor = CENTER)
+
 
     iziet_btn = tk.Button(vecaki_logs, text="Iziet", command=vecaki_logs.destroy, width=25, height=2, bg="red", fg="white",font="bold",borderwidth=3)
     iziet_btn.pack(pady=10)
+    iziet_btn.place(relx = 0.5 , rely = 0.6,y=20, anchor = CENTER)
