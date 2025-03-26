@@ -17,14 +17,21 @@ cursor = conn.cursor()
 
 #Funkcija , kas ļauj atteikt pusdienas ,izveidot pusdienu atteikšanu.
 
+
+
+#Šaja funkcija ir kalendari 
+
 def atteikt_pusdienas():
     
     def kalendars():
         def print_sel():
             print(cal.selection_get())
             if cal.selection_get():
-                cursor.execute('INSERT INTO Atteiksana (Dat_no) VALUES (?)', (f"{cal.selection_get()}",))
-                conn.commit()
+                #cursor.execute('INSERT INTO Atteiksana (Dat_no) VALUES (?)', (f"{cal.selection_get()}",))
+                global dat_no
+
+                dat_no=cal.selection_get()
+
                 top.destroy()
                 messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
             
@@ -41,8 +48,9 @@ def atteikt_pusdienas():
         def print_sel():
             print(cal.selection_get())
             if cal.selection_get():
-                cursor.execute('INSERT INTO Atteiksana (Dat_lidz) VALUES (?)', (f"{cal.selection_get()}",))
-                conn.commit()
+                #cursor.execute('INSERT INTO Atteiksana (Dat_lidz) VALUES (?)', (f"{cal.selection_get()}",))
+                global dat_lidz
+                dat_lidz=cal.selection_get()
                 top.destroy()
                 messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
                 
@@ -58,41 +66,39 @@ def atteikt_pusdienas():
 
 
     def saglabat_pusdienu_att():
-        id_atteicejs = id_atteicejs_entry.get()
-        id_maksa = id_maksa_entry.get()
-        Dat_no = Dat_no_entry.get()
-        Dat_lidz = Dat_lidz_entry.get()
+        try:
+            id_atteicejs = id_atteicejs_entry.get()
+            id_maksa = id_maksa_entry.get()
+            Dat_no = dat_no
+            Dat_lidz = dat_lidz
 
 
-        pattern = r'\d+$'
-    
-        if not re.match(pattern, id_atteicejs):
-            messagebox.showerror("Rezultāts", "Vards nav derīga!")
+            pattern = r'\d+$'
+        
+            if not re.match(pattern, id_atteicejs):
+                messagebox.showerror("Rezultāts", "Vārds nav derīgs!")
 
-        if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
+            if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
 
-            try:
-                Pirmais = datetime.strptime(Dat_no, '%d-%m-%Y')
-                Otrais = datetime.strptime(Dat_lidz, '%d-%m-%Y')
-                starp=Otrais - Pirmais
-            except ValueError:
-                tk.Label(logs, text="Nepariezi ievadīts datums!")
-
-            
-
+                try:
+                    Pirmais = datetime.strptime(Dat_no, '%d-%m-%Y')
+                    Otrais = datetime.strptime(Dat_lidz, '%d-%m-%Y')
+                    starp=Otrais - Pirmais
+                except ValueError:
+                    tk.Label(logs, text="Nepariezi ievadīts datums!")
 
             
-
-            cursor.execute(
-                "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz,Dienas) VALUES (?, ?, ?, ?,?)",
-                (id_atteicejs, id_maksa, Dat_no, Dat_lidz,str(starp))
-            )
-            conn.commit()
-            messagebox.showinfo("Veiksmīgi", "Pusdienas ir veiksmīgi atteiktas!")
-            logs.destroy()
-        else:
-            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
-
+                cursor.execute(
+                    "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz,Dienas) VALUES (?, ?, ?, ?,?)",
+                    (id_atteicejs, id_maksa, Dat_no, Dat_lidz,str(starp))
+                )
+                conn.commit()
+                messagebox.showinfo("Veiksmīgi", "Pusdienas ir veiksmīgi atteiktas!")
+                logs.destroy()
+            else:
+                messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+        except  Exception as e:
+            messagebox.showerror("Kļūda",f"")
     logs = tk.Toplevel()
     logs.title("Atteikt pusdienas")
     logs.geometry("400x400")
@@ -112,9 +118,11 @@ def atteikt_pusdienas():
 
     Lower_left1.place(relx = 0.5 , rely = 0.15, anchor = CENTER)
 
+    
+#Te vajag No un Lidz vietas ievadit no kalendara
 
     Lower_left2=tk.Label(logs, text="No:")
-    Dat_no_entry = tk.Entry(logs)
+    Dat_no_entry = tk.Entry(logs,text=dat_no)
     Dat_no_entry.pack()
     Dat_no_entry.place(relx = 0.5 , rely = 0.3, anchor = CENTER)
 
