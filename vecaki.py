@@ -1,4 +1,5 @@
 import sqlite3
+import tkinter as ttk
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -19,8 +20,6 @@ cursor = conn.cursor()
 
 
 
-#Šaja funkcija ir kalendari 
-
 def atteikt_pusdienas():
     
     def kalendars():
@@ -31,9 +30,12 @@ def atteikt_pusdienas():
                 global dat_no
 
                 dat_no=cal.selection_get()
+                
+                text=tk.Label(logs,text=dat_no)
+                text.place(relx = 0.5 , rely = 0.3, anchor = CENTER)
 
                 top.destroy()
-                messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+                #messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
             
         
         top = tk.Toplevel(logs)
@@ -51,8 +53,12 @@ def atteikt_pusdienas():
                 #cursor.execute('INSERT INTO Atteiksana (Dat_lidz) VALUES (?)', (f"{cal.selection_get()}",))
                 global dat_lidz
                 dat_lidz=cal.selection_get()
+
+                text1=tk.Label(logs,text=dat_lidz)
+                text1.place(relx = 0.5 , rely = 0.4, anchor = CENTER)
+
                 top.destroy()
-                messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
+                #messagebox.showinfo("Veiksmīgi",'Datums pievienots!')
                 
 
         
@@ -68,37 +74,50 @@ def atteikt_pusdienas():
     def saglabat_pusdienu_att():
         try:
             id_atteicejs = id_atteicejs_entry.get()
-            id_maksa = id_maksa_entry.get()
+            id_maksa = maksasveids_combobox.get()
             Dat_no = dat_no
             Dat_lidz = dat_lidz
 
 
             pattern = r'\d+$'
+            pattern2 = r'\d+$'
         
             if not re.match(pattern, id_atteicejs):
-                messagebox.showerror("Rezultāts", "Vārds nav derīgs!")
+                messagebox.showerror("Rezultāts", "Id skolnieka nav derīgs!")
 
-            if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
-
-                try:
-                    Pirmais = datetime.strptime(Dat_no, '%d-%m-%Y')
-                    Otrais = datetime.strptime(Dat_lidz, '%d-%m-%Y')
-                    starp=Otrais - Pirmais
-                except ValueError:
-                    tk.Label(logs, text="Nepariezi ievadīts datums!")
+            else: 
 
             
-                cursor.execute(
-                    "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz,Dienas) VALUES (?, ?, ?, ?,?)",
-                    (id_atteicejs, id_maksa, Dat_no, Dat_lidz,str(starp))
-                )
-                conn.commit()
-                messagebox.showinfo("Veiksmīgi", "Pusdienas ir veiksmīgi atteiktas!")
-                logs.destroy()
-            else:
-                messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+        
+                if not re.match(pattern2, id_maksa):
+                    messagebox.showerror("Rezultāts", "Maksas id nav derīgs!")
+                    
+                else:
+
+
+                    if id_atteicejs and id_maksa and Dat_no and Dat_lidz:
+
+                        try:
+                            
+                            starp=Dat_lidz - Dat_no
+
+                        except ValueError:
+                            tk.Label(logs, text="Nepariezi ievadīts datums!")
+
+                        
+                        cursor.execute(
+                            "INSERT INTO Atteiksana (id_atteicejs, id_maksa, Dat_no,Dat_lidz,Dienas) VALUES (?, ?, ?, ?,?)",
+                            (id_atteicejs, id_maksa, Dat_no, Dat_lidz,str(starp))
+                        )
+
+                        conn.commit()
+                        messagebox.showinfo("Veiksmīgi", "Pusdienas ir veiksmīgi atteiktas!")
+                        logs.destroy()
+                    else:
+                       messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+            
         except  Exception as e:
-            messagebox.showerror("Kļūda",f"")
+            messagebox.showerror("Kļūda",f"{e}")
     logs = tk.Toplevel()
     logs.title("Atteikt pusdienas")
     logs.geometry("400x400")
@@ -112,29 +131,27 @@ def atteikt_pusdienas():
 
 
     Lower_left1=tk.Label(logs, text="id_maksa:")
-    id_maksa_entry = tk.Entry(logs)
-    id_maksa_entry.pack()
-    id_maksa_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
-
     Lower_left1.place(relx = 0.5 , rely = 0.15, anchor = CENTER)
 
-    
-#Te vajag No un Lidz vietas ievadit no kalendara
+    maksa=maksasveids_combobox.get()
+    conn=sqlite3.connect('Pusdienuatteiksana.db')
+    cur=conn.cursor()
+    cur.execute("SELECT id_maksa FROM Maksa WHERE id_maksa LIKE ?",(maksa,))
+
+    tk.Label(logs,text="lox").pack()
+    maksasveids_combobox= tk.Entry(logs)
+    maksasveids_combobox.pack()
+    #id_maksa_entry = tk.Entry(logs)
+    #id_maksa_entry.pack()
+    #id_maksa_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
+
+
+
 
     Lower_left2=tk.Label(logs, text="No:")
-    Dat_no_entry = tk.Entry(logs,text=dat_no)
-    Dat_no_entry.pack()
-    Dat_no_entry.place(relx = 0.5 , rely = 0.3, anchor = CENTER)
-
-
     Lower_left2.place(relx = 0.5 , rely = 0.25, anchor = CENTER)
         
-
     Lower_left3=tk.Label(logs, text="Līdz:")
-    Dat_lidz_entry = tk.Entry(logs)
-    Dat_lidz_entry.pack()
-    Dat_lidz_entry.place(relx = 0.5 , rely = 0.4, anchor = CENTER)
-    
     Lower_left3.place(relx = 0.5 , rely = 0.35, anchor = CENTER)
  
 
