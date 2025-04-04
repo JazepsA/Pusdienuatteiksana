@@ -23,7 +23,7 @@ def izveidot_galveno_logu():
 
 
     logs = tk.Tk()
-    logs.title("Pusdienu atteiksana/samaksa")
+    logs.title("Galvenais logs")
     logs.geometry(f"325x270+{int((logs.winfo_screenwidth())/2)-162}+{int((logs.winfo_screenheight())/2)-135}")
     logs.configure(bg="lightgrey")
 
