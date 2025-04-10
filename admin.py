@@ -25,9 +25,14 @@ def pievienot_skolnieku():
         if not re.match(pattern2, uzvards):
             messagebox.showerror("Rezultāts", "Nepareizi ievadīts uzvārds!")
 
-        pattern3= r'\d{1,2}+$|\d[1-9]{1}.[a-z]+$|[a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
-        if not re.match(pattern, vards):
-            messagebox.showerror("Rezultāts", "Nepareizi ievadīts vārds!")
+        pattern3= r'\d{1,2}+$|\d[1-9]{1}.[a-z]+$|[1]{1}[012]{2}.[123]{1}+$'
+        if not re.match(pattern3, klase):
+            messagebox.showerror("Rezultāts", "Nepareizi ievadīta klase!")
+
+        pattern4= r'\d{8}'
+        if not re.match(pattern4, telefons):
+            messagebox.showerror("Rezultāts", "Nepareizi ievadīts telefona numurs!(Rakstiet numuru bez trīsciparu koda!)")
+
 
         if vards and uzvards and telefons and klase:
             cursor.execute(
@@ -67,7 +72,13 @@ def pievienot_skolnieku():
 
 def meklēt_skolnieku():
     def atrast_skolnieku():
-        vards = vards_entry.get()
+        id = vards_entry.get()
+        
+        patternn= r'\d'
+        if not re.match(patternn, id):
+            messagebox.showerror("Kļūda", "Nepareizi ievadīts id!")
+            
+        '''
         if vards:
             cursor.execute("SELECT * FROM Atteicejs WHERE vards LIKE ?", (f"%{vards}%",))
             rezultati = cursor.fetchall()
@@ -80,12 +91,27 @@ def meklēt_skolnieku():
                 messagebox.showinfo("Rezultāti", f"Netika atrasts neviens skolnieks/ce ar vārdu {vards}.")
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet skolnieka vārdu!")
+            '''
+        
+        if id:
+                cursor.execute("SELECT * FROM Atteicejs WHERE id_atteicejs LIKE ?", (f"%{id}%",))
+                rezultati = cursor.fetchall()
+                if rezultati:
+                    rezultati_str = ""
+                    for r in rezultati:
+                        rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}\n"
+                        messagebox.showinfo("Rezultāti", f"ID:{r[0]}  Vārds: {r[1]} Uzvārds: {r[2]} Klase: {r[3]} Telefona numurs: {r[4]}\n")
+                else:
+                    messagebox.showinfo("Rezultāti", f"Netika atrasts neviens skolnieks/ce ar id {id}.")
+        else:
+                messagebox.showerror("Kļūda", "Lūdzu, ievadiet korektu id !")
+
 
     logs = tk.Toplevel()
     logs.title("Meklēt skolnieku")
     logs.geometry("300x200")
 
-    tk.Label(logs, text="Skolnieka vārds:").pack()
+    tk.Label(logs, text="Skolnieka id:").pack()
     vards_entry = tk.Entry(logs)
     vards_entry.pack()
 
