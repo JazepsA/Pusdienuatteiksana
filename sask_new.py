@@ -2,7 +2,7 @@ import sqlite3
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
-from admin import skolnieku_logs
+from admin_new import skolnieku_logs
 from vecaki import vecaku_logs
 import re
 conn = sqlite3.connect('pusdienuatteiksana.db')

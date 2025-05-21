@@ -8,17 +8,10 @@ from datetime import datetime
 import re
 from tkcalendar import Calendar
 
-#from kalendars import kalendars
-
-
-
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
-
 #Funkcija , kas ļauj atteikt pusdienas ,izveidot pusdienu atteikšanu.
-
-
 
 def atteikt_pusdienas():
     
@@ -74,7 +67,7 @@ def atteikt_pusdienas():
     def saglabat_pusdienu_att():
         try:
             id_atteicejs = id_atteicejs_entry.get()
-            id_maksa = maksasveids_combobox.get()
+            id_maksa = id_maksa_entry.get()
             Dat_no = dat_no
             Dat_lidz = dat_lidz
 
@@ -132,21 +125,25 @@ def atteikt_pusdienas():
 
     Lower_left1=tk.Label(logs, text="id_maksa:")
     Lower_left1.place(relx = 0.5 , rely = 0.15, anchor = CENTER)
+    id_maksa_entry = tk.Entry(logs)
+    id_maksa_entry.pack()
+    id_maksa_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
 
-    maksa=maksasveids_combobox.get()
-    conn=sqlite3.connect('Pusdienuatteiksana.db')
-    cur=conn.cursor()
-    cur.execute("SELECT id_maksa FROM Maksa WHERE id_maksa LIKE ?",(maksa,))
-
-    tk.Label(logs,text="lox").pack()
+ 
+    '''
+    tk.Label(logs,text="d").pack()
     maksasveids_combobox= tk.Entry(logs)
     maksasveids_combobox.pack()
     #id_maksa_entry = tk.Entry(logs)
     #id_maksa_entry.pack()
     #id_maksa_entry.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
+    maksa=maksasveids_combobox.get()
+    conn=sqlite3.connect('Pusdienuatteiksana.db')
+    cur=conn.cursor()
+    cur.execute("SELECT id_maksa FROM Maksa WHERE id_maksa LIKE ?",(maksa,))
+    rez=cur.fetchall()
 
-
-
+    '''
 
     Lower_left2=tk.Label(logs, text="No:")
     Lower_left2.place(relx = 0.5 , rely = 0.25, anchor = CENTER)
