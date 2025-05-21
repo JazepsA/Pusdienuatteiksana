@@ -4,6 +4,7 @@ from tkinter import messagebox,ttk
 from tkinter import ttk
 import re
 
+
 conn = sqlite3.connect('pusdienuatteiksana.db')
 cursor = conn.cursor()
 
@@ -103,12 +104,75 @@ def meklēt_skolnieku():
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_skolnieku,overrelief="ridge",font=("Arial",11,"bold"))
     meklēt_btn.pack(pady=10)
 
+'''
+def red_skolnieku():
+    vards = vards_entry.get()
+    uzvards = uzvards_entry.get()
+    klase = klase_entry.get()
+    telefons = telefons_entry.get()
 
+    pattern= r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+    if not re.match(pattern, vards):
+        messagebox.showerror("Rezultāts", "Nepareizi ievadīts vārds!")
+
+    pattern2= r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+    if not re.match(pattern2, uzvards):
+        messagebox.showerror("Rezultāts", "Nepareizi ievadīts uzvārds!")
+
+    pattern3= r'\d{1,2}+$|\d[1-9]{1}.[a-z]+$|[1]{1}[012]{2}.[123]{1}+$'
+    if not re.match(pattern3, klase):
+        messagebox.showerror("Rezultāts", "Nepareizi ievadīta klase!")
+
+    pattern4= r'\d{8}'
+    if not re.match(pattern4, telefons):
+        messagebox.showerror("Rezultāts", "Nepareizi ievadīts telefona numurs!(Rakstiet numuru bez trīsciparu koda!)")
+
+
+    if vards and uzvards and telefons and klase:
+        cursor.execute(
+            "UPDATE Atteicejs (Vards,Uzvards,Klase,Tel_nr) VALUES (?, ?, ?, ?) WHERE id_atteicejs LIKE ? ",
+            (vards, uzvards, int(klase), int(telefons))
+        )
+        conn.commit()
+        messagebox.showinfo("Veiksmīgi", "Skolnieks pievienots!")
+        logs.destroy()
+    else:
+        messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+
+logs = tk.Toplevel()
+logs.title("Pievienot skolnieku")
+logs.geometry("300x300")
+
+tk.Label(logs, text="Vārds:").pack()
+vards_entry = tk.Entry(logs)
+vards_entry.pack()
+
+tk.Label(logs, text="Uzvārds:").pack()
+uzvards_entry = tk.Entry(logs)
+uzvards_entry.pack()
+
+tk.Label(logs, text="Klase:").pack()
+klase_entry = tk.Entry(logs)
+klase_entry.pack()
+
+tk.Label(logs, text="Telefona numurs:").pack()
+telefons_entry = tk.Entry(logs)
+telefons_entry.pack()
+
+saglabat_btn = tk.Button(logs, text="Saglabāt", command=red_skolnieku,overrelief="ridge",font=("Arial",11,"bold"))
+saglabat_btn.pack(pady=10)
+'''
 #Funkcija , kas ļauj atjaunot informāciju par skolnieku.
+
 
 def atjaunot_info():
     def atjauno_info():
         id_atteicejs =id_atteicejs_entry.get()
+
+        patternnn= r'\d'
+        if not re.match(patternnn, id_atteicejs):
+            messagebox.showerror("Kļūda", "Nepareizi ievadīts id!")
+            
         if id_atteicejs:
             #cursor.execute("SELECT Vards,Uzvards,Klase , Maksa.Maksa FROM Atteicejs INNER JOIN Atteiksana ON Atteicejs.id_atteicejs= Atteiksana.id_atteicejs INNER JOIN Maksa ON Atteiksana.id_maksa= Maksa.id_maksa WHERE Atteicejs.id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",) )    
             cursor.execute("SELECT Vards,Uzvards,Klase, Tel_nr FROM Atteicejs WHERE id_atteicejs LIKE ? ", (f"%{id_atteicejs}%",) ) 
@@ -120,6 +184,7 @@ def atjaunot_info():
                     rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
 
                     tk.Label(logs, text=f"Rezultāti\n Vārds:{r[0]} \n Uzvārds: {r[1]}\n Klase: {r[2]}\n Maksas veids:{r[3]}\n").pack()
+                    #red_skolnieku()
                     pievienot_skolnieku()
 
 
@@ -127,7 +192,7 @@ def atjaunot_info():
                 messagebox.showinfo("Rezultāti", f"Netika atrasts neviens skolnieks ar id {id_atteicejs}.")
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet korektu skolnieka id!")
-
+        '''
         ttk.Label(logs, text = "Izvēlieties ,ko vēlaties pamainīt: ",  font = ("Times New Roman", 10)).grid(column = 0, row = 15, padx = 10, pady = 25) 
             
         n = tk.StringVar() 
@@ -148,20 +213,23 @@ def atjaunot_info():
                                     ' December') 
             
         monthchoosen.grid(column = 1, row = 15) 
-
+        '''
 
 
 
     logs = tk.Toplevel()
-    logs.title("Rediģēt skolnieka informāciju")
+    logs.title("Rediģēt skolēna informāciju")
     logs.geometry("300x200")
 
-    tk.Label(logs, text="Skolnieka id:").pack()
+    tk.Label(logs, text="Skolēna id:").pack()
     id_atteicejs_entry = tk.Entry(logs)
     id_atteicejs_entry.pack()
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atjauno_info,overrelief="ridge",font=("Arial",11,"bold"))
     meklēt_btn.pack(pady=10)
+
+
+    
 
     #atveras_btn=tk.Button(logs,text="Informācija par skolnieku",command=atveras)
     #atveras_btn.pack(pady=10)
